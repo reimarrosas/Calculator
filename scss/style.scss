@@ -2,9 +2,19 @@
 @import 'utils';
 @import 'mixins';
 
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #23395d;
+}
+
 #main {
   width: 320px;
   height: 568px;
+  padding: 3px;
+  border-radius: 5px;
 
   background-color: $color-dark;
   color: $color-dark;
@@ -16,6 +26,18 @@
 
   .screen {
     grid-area: 1 / 1 / 3 / 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    word-wrap: break-word;
+    word-break: break-all;
+
+    .prev,
+    .curr {
+      color: $color-light;
+      font-size: 2rem;
+    }
   }
 
   .zero {
