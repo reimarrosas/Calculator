@@ -1,7 +1,31 @@
 @import 'defaults';
 @import 'utils';
+@import 'mixins';
 
 #main {
   width: 320px;
   height: 568px;
+
+  background-color: $color-dark;
+  color: $color-dark;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-gap: 1px;
+
+  .screen {
+    grid-area: 1 / 1 / 3 / 5;
+  }
+
+  .zero {
+    grid-column: 1 / 3;
+  }
+
+  button {
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  @include setBtnGrp();
 }

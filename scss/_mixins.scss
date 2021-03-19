@@ -1,0 +1,44 @@
+$btnGrp: (
+  'func': $color-gray,
+  'op': $color-accent,
+  'num': $color-light,
+  'equal': $color-accent,
+);
+
+$btns: (
+  'clear',
+  'posneg',
+  'percent',
+  'div',
+  'seven',
+  'eight',
+  'nine',
+  'mul',
+  'four',
+  'five',
+  'six',
+  'sub',
+  'one',
+  'two',
+  'three',
+  'add',
+  'zero',
+  'dot',
+  'equal'
+);
+
+@mixin setBtnGrp() {
+  @each $btnType, $color in $btnGrp {
+    .#{$btnType} {
+      background-color: $color;
+    }
+  }
+}
+
+@mixin setTemplateAreas() {
+  @each $btn in $btns {
+    .#{$btn} {
+      grid-area: $btn;
+    }
+  }
+}

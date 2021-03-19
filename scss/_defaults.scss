@@ -7,15 +7,16 @@ $deffnt-title: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman,
 
 // || Colors
 //$color-primary: ;
-//$color-accent: ;
+$color-accent: #fa8e12;
 $color-light: #ebebeb;
 $color-dark: #2b2b2b;
+$color-gray: #cacbcd;
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: $content-font;
+  font-family: $deffnt-content;
   margin: 0;
   padding: 0;
   border: none;
