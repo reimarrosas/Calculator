@@ -4,19 +4,19 @@ const currentText = document.querySelector('.curr');
 
 // Method for screen operations
 const screen = {
-  appendToCurrentText(curr, text) {
-    curr.textContent += text;
+  appendToDisplay(display, text) {
+    display.textContent += text;
   },
 
-  appendToPreviousText(prev, text) {
-    prev.textContent = text;
+  setDisplay(display, text) {
+    display.textContent = text;
   },
 
-  clearCurrentText(curr) {
-    curr.textContent = '';
+  clearSingleDisplay(display) {
+    display.textContent = '';
   },
 
-  clearAllText(prev, curr) {
+  clearAllDisplay(prev, curr) {
     prev.textContent = '';
     curr.textContent = '';
   },
@@ -30,6 +30,8 @@ const operations = {
   div: (a, b) => a / b,
 
   round: (num) => Math.round(num * 1000) / 1000,
+
+  outputValidation: (num, text) => (Number.isFinite(num) ? text : 'Math Error!'),
 
   calculate(prev, curr) {
     const previousTokenArr = prev.textContent.split(' ');
@@ -50,10 +52,6 @@ const operations = {
         return this.mul(previousValue, currentValue);
       case '÷':
         return this.div(previousValue, currentValue);
-      case '%':
-        return this.div(currentValue, 100);
-      case '±':
-        return this.mul(currentValue, -1);
       default:
         return 'Error! Wrong Operator.';
     }
@@ -76,7 +74,7 @@ numbers.forEach((el) => {
       textToBeAdded = el.textContent;
     }
 
-    screen.appendToCurrentText(currentText, textToBeAdded);
+    screen.appendToDisplay(currentText, textToBeAdded);
   });
 });
 
@@ -86,16 +84,16 @@ const operators = document.querySelectorAll('.op');
 operators.forEach((el) => {
   el.addEventListener('click', () => {
     if (currentText.textContent) {
-      if (!previousText.textContent || previousText.textContent === 'Math Error!') {
+      if (!previousText.textContent || !/[0-9]+ [+−×÷]/g.test(previousText.textContent)) {
         const textToBeAdded = `${currentText.textContent} ${el.textContent}`;
-        screen.appendToPreviousText(previousText, textToBeAdded);
+        screen.setDisplay(previousText, textToBeAdded);
       } else {
         const operationResult = operations.calculate(previousText, currentText);
-        const textToBeAdded = Number.isFinite(operationResult) ? `${operationResult} ${el.textContent}` : 'Math Error!';
-        screen.appendToPreviousText(previousText, textToBeAdded);
+        const textToBeAdded = operations.outputValidation(operationResult, `${operationResult} ${el.textContent}`);
+        screen.setDisplay(previousText, textToBeAdded);
       }
     }
-    screen.clearCurrentText(currentText);
+    screen.clearSingleDisplay(currentText);
   });
 });
 
@@ -105,7 +103,25 @@ const equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
   if (previousText.textContent && currentText.textContent) {
     const operationResult = operations.calculate(previousText, currentText);
-    screen.appendToCurrentText(currentText, operationResult);
-    screen.clearCurrentText(currentText);
+    const textToBeAdded = operations.outputValidation(operationResult, operationResult);
+    screen.setDisplay(previousText, textToBeAdded);
+    screen.clearSingleDisplay(currentText);
   }
+});
+
+// AC event listener
+const clear = document.querySelector('.clear');
+
+clear.addEventListener('click', () => {
+  screen.clearAllDisplay(previousText, currentText);
+});
+
+// PlusMinus event listener
+const plusMinus = document.querySelector('.posneg');
+
+plusMinus.addEventListener('click', () => {
+  const currentValue = Number(currentText.textContent);
+  const operationResult = operations.mul(currentValue, -1);
+  screen.clearSingleDisplay(currentText);
+  screen.setDisplay(currentText, operationResult);
 });
