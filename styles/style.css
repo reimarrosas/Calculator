@@ -15,6 +15,10 @@ img {
   height: auto;
 }
 
+.clicked {
+  opacity: 0.75;
+}
+
 #main {
   width: 320px;
   height: 568px;
@@ -34,6 +38,9 @@ img {
 #main button {
   font-size: 1.8rem;
   cursor: pointer;
+}
+#main button:hover {
+  opacity: 0.75;
 }
 #main .func {
   background-color: #cacbcd;

@@ -25,6 +25,10 @@
   button {
     font-size: 1.8rem;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
   }
 
   @include setBtnGrp();
