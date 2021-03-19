@@ -125,3 +125,13 @@ plusMinus.addEventListener('click', () => {
   screen.clearSingleDisplay(currentText);
   screen.setDisplay(currentText, operationResult);
 });
+
+// Percent event listener
+const percent = document.querySelector('.percent');
+
+percent.addEventListener('click', () => {
+  const currentValue = Number(currentText.textContent);
+  const operationResult = operations.div(currentValue, 100);
+  screen.clearSingleDisplay(currentText);
+  screen.setDisplay(currentText, operationResult);
+});
