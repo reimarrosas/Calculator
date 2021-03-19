@@ -2,6 +2,7 @@
 const previousText = document.querySelector('.prev');
 const currentText = document.querySelector('.curr');
 
+// Method for screen operations
 const screen = {
   appendToCurrentText(curr, text) {
     curr.textContent += text;
@@ -21,11 +22,12 @@ const screen = {
   },
 };
 
+// Methods for number operations
 const operations = {
   add: (a, b) => a + b,
-  sub: (a, b) => a + b,
-  mul: (a, b) => a + b,
-  div: (a, b) => a + b,
+  sub: (a, b) => a - b,
+  mul: (a, b) => a * b,
+  div: (a, b) => a / b,
 
   round: (num) => Math.round(num * 1000) / 1000,
 
@@ -58,14 +60,27 @@ const operations = {
   },
 };
 
+// Number event listeners
 const numbers = document.querySelectorAll('.num');
 
 numbers.forEach((el) => {
   el.addEventListener('click', () => {
-    screen.appendToCurrentText(currentText, el.textContent);
+    let textToBeAdded;
+    if (el.classList.contains('dot')) {
+      if (currentText.textContent.indexOf('.') === -1) {
+        textToBeAdded = el.textContent;
+      } else {
+        textToBeAdded = '';
+      }
+    } else {
+      textToBeAdded = el.textContent;
+    }
+
+    screen.appendToCurrentText(currentText, textToBeAdded);
   });
 });
 
+// Operator event listeners
 const operators = document.querySelectorAll('.op');
 
 operators.forEach((el) => {
@@ -81,3 +96,5 @@ operators.forEach((el) => {
     screen.clearCurrentText(currentText);
   });
 });
+
+//
