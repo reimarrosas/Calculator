@@ -85,16 +85,27 @@ const operators = document.querySelectorAll('.op');
 
 operators.forEach((el) => {
   el.addEventListener('click', () => {
-    if (!previousText.textContent) {
-      const textToBeAdded = `${currentText.textContent} ${el.textContent}`;
-      screen.appendToPreviousText(previousText, textToBeAdded);
-    } else {
-      const operationResult = operations.calculate(previousText, currentText);
-      const textToBeAdded = `${operationResult} ${el.textContent}`;
-      screen.appendToPreviousText(previousText, textToBeAdded);
+    if (currentText.textContent) {
+      if (!previousText.textContent || previousText.textContent === 'Math Error!') {
+        const textToBeAdded = `${currentText.textContent} ${el.textContent}`;
+        screen.appendToPreviousText(previousText, textToBeAdded);
+      } else {
+        const operationResult = operations.calculate(previousText, currentText);
+        const textToBeAdded = Number.isFinite(operationResult) ? `${operationResult} ${el.textContent}` : 'Math Error!';
+        screen.appendToPreviousText(previousText, textToBeAdded);
+      }
     }
     screen.clearCurrentText(currentText);
   });
 });
 
-//
+// Equal event listener
+const equal = document.querySelector('.equal');
+
+equal.addEventListener('click', () => {
+  if (previousText.textContent && currentText.textContent) {
+    const operationResult = operations.calculate(previousText, currentText);
+    screen.appendToCurrentText(currentText, operationResult);
+    screen.clearCurrentText(currentText);
+  }
+});
