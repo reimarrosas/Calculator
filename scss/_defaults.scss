@@ -1,0 +1,29 @@
+// || Fonts
+$content-font: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+  helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+$title-font: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman,
+  Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji,
+  Segoe UI Symbol;
+
+// || Colors
+//$color-primary: ;
+//$color-accent: ;
+$color-light: #ebebeb;
+$color-dark: #2b2b2b;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: $content-font;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
