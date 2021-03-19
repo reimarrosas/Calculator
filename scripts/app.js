@@ -3,19 +3,19 @@ const previousText = document.querySelector('.prev');
 const currentText = document.querySelector('.curr');
 
 const screen = {
-  appendCurrentValue(curr, text) {
+  appendToCurrentText(curr, text) {
     curr.textContent += text;
   },
 
-  appendPreviousValue(prev, text) {
+  appendToPreviousText(prev, text) {
     prev.textContent = text;
   },
 
-  clearCurrentValue(curr) {
+  clearCurrentText(curr) {
     curr.textContent = '';
   },
 
-  clearAllValues(prev, curr) {
+  clearAllText(prev, curr) {
     prev.textContent = '';
     curr.textContent = '';
   },
@@ -62,6 +62,22 @@ const numbers = document.querySelectorAll('.num');
 
 numbers.forEach((el) => {
   el.addEventListener('click', () => {
-    screen.appendCurrentValue(currentText, el.textContent);
+    screen.appendToCurrentText(currentText, el.textContent);
+  });
+});
+
+const operators = document.querySelectorAll('.op');
+
+operators.forEach((el) => {
+  el.addEventListener('click', () => {
+    if (!previousText.textContent) {
+      const textToBeAdded = `${currentText.textContent} ${el.textContent}`;
+      screen.appendToPreviousText(previousText, textToBeAdded);
+    } else {
+      const operationResult = operations.calculate(previousText, currentText);
+      const textToBeAdded = `${operationResult} ${el.textContent}`;
+      screen.appendToPreviousText(previousText, textToBeAdded);
+    }
+    screen.clearCurrentText(currentText);
   });
 });
